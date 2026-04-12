@@ -42,7 +42,7 @@ export default function Home() {
 
         <WhyUsSection />
 
-        <BlogsSection onViewAll={() => { }} />
+        <BlogsSection />
 
 
         <CTASection onGetStarted={() => setModalOpen(true)} />
