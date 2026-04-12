@@ -150,22 +150,29 @@ function BlogModal({ blog, onClose }: { blog: Blog; onClose: () => void }) {
               {blog.excerpt}
             </p>
           </div>
-          <div className="bpModalContent" dangerouslySetInnerHTML={{
-            __html: blog.content
-              .replace(/^### (.+)$/gm,'<h3>$1</h3>')
-              .replace(/^## (.+)$/gm,'<h2>$1</h2>')
-              .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-              .replace(/`(.+?)`/g,'<code>$1</code>')
-              .replace(/^> (.+)$/gm,'<blockquote><p>$1</p></blockquote>')
-              .replace(/^- (.+)$/gm,'<li>$1</li>')
-              .replace(/(<li>[\s\S]*<\/li>)/,'<ul>$1</ul>')
-              .replace(/\n\n/g,'</p><p>')
-              .replace(/^(?!<[hublp])/gm,'<p>')
-              .replace(/(?<![>])$/gm,'</p>')
-              .replace(/<p><\/p>/g,'')
-              .replace(/<p>(<[hul])/g,'$1')
-              .replace(/(<\/[hul][^>]*>)<\/p>/g,'$1'),
-          }} />
+         
+          <div
+  className="bpModalContent"
+  dangerouslySetInnerHTML={{
+    __html: blog.content
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/`(.+?)`/g, '<code>$1</code>')
+      .replace(/^> (.+)$/gm, '<blockquote><p>$1</p></blockquote>')
+      .replace(/^- (.+)$/gm, '<li>$1</li>')
+      // ✅ wrap consecutive <li> items into <ul>
+      .replace(/(<li>.*?<\/li>)+/g, '<ul>$&</ul>')
+      .replace(/\n\n/g, '</p><p>')
+      // ✅ removed lookbehind (fixes build error)
+      .replace(/^(?!<[hubl])/gm, '<p>')
+      .replace(/$/gm, '</p>')
+      // cleanup fixes
+      .replace(/<p><\/p>/g, '')
+      .replace(/<p>(<[hul])/g, '$1')
+      .replace(/(<\/[hul][^>]*>)<\/p>/g, '$1'),
+  }}
+/>
           {blog.tags?.length > 0 && (
             <div style={{marginTop:28,display:'flex',gap:8,flexWrap:'wrap'}}>
               {blog.tags.map(t=>(
