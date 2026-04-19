@@ -88,7 +88,7 @@ export default function Navbar({ logoUrl, onGetStarted }: NavbarProps) {
             )}
             <span style={{
               fontFamily: 'Syne, sans-serif', fontWeight: 1000,
-              fontSize: '1.05rem', color: '#0D1B3E',
+              fontSize: '1rem', color: '#0D1B3E',
             }}>
               Market<span style={{ color: '#2352FF' }}>Captura</span>
             </span>

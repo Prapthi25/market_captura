@@ -13,6 +13,7 @@ import WhyUsSection from './components/Whyussection';
 import CTASection from './components/Ctasection';
 import Footer from './components/Footer';
 import GetStartedModal from './components/Getstartedmodal ';
+import NewHeroSection from './components/NewHeroSection';
 
 // ── Replace this with your actual logo URL ──
 const LOGO_URL = 'https://res.cloudinary.com/dk05wqwo1/image/upload/q_auto/f_auto/v1775669384/WhatsApp_Image_2026-04-07_at_4.58.11_PM_oqiqxo.jpg';
@@ -36,6 +37,7 @@ export default function Home() {
 
       {/* Main content */}
       <main>
+        <NewHeroSection onGetStarted={() => setModalOpen(true)} />
         <HeroSection onGetStarted={() => setModalOpen(true)} />
         <MarqueeStrip />
         <ServicesSection />
