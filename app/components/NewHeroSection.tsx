@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 
 const MARQUEE_ITEMS = [
   'Meta Ads', 'D2C Brands', 'Revenue Growth', 'Full-Funnel Strategy',
-  'High-Converting Creatives', 'SEO & Analytics', 'Scale Fast',
+  'High-Converting Creatives', 'SEO & Analytics',
 ];
 
 const TRUST_PILLS = [
   { icon: '🚀', text: '150+ Projects' },
   { icon: '💰', text: '3.8× Avg ROAS' },
   { icon: '⭐', text: '4.8 Rating' },
-  { icon: '🇮🇳', text: 'India Registered' },
+  
 ];
 
 interface NewHeroSectionProps {
@@ -356,16 +356,12 @@ export default function NewHeroSection({ onGetStarted }: NewHeroSectionProps) {
           {/* <div className="nh-logo">Market<span>Captura</span></div> */}
           <div style={{
             display: 'flex', alignItems: 'center', gap: 8,
-            background: '#fff', border: '1.5px solid #E4ECF7',
+            
             borderRadius: 40, padding: '6px 12px 6px 8px',
-            boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+            
           }}>
-            <div style={{
-              width: 7, height: 7, borderRadius: '50%',
-              background: '#22c55e',
-              boxShadow: '0 0 0 3px rgba(34,197,94,0.2)',
-            }} />
-            <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#0D1B3E' }}>Available for Projects</span>
+          
+            {/* <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#0D1B3E' }}>Available for Projects</span> */}
           </div>
         </nav>
 
@@ -400,7 +396,7 @@ export default function NewHeroSection({ onGetStarted }: NewHeroSectionProps) {
                 <div className="nh-arrow">→</div>
               </button>
               <a className="nh-btn-secondary" href="#services">
-                <span>See Our Work</span>
+                <span>See Our Service</span>
                 <span style={{ fontSize: '0.9rem' }}>↓</span>
               </a>
             </div>

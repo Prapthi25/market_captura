@@ -11,7 +11,7 @@ interface HeroSectionProps {
 
 const STATS = [
   { num: '150+',   label: 'Projects'      },
-  { num: '15+',    label: 'Clients'       },
+  { num: '50+',    label: 'Clients'       },
   { num: '3.8×',   label: 'Avg ROI'       },
 ];
 
@@ -219,7 +219,7 @@ export default function HeroSection({ onGetStarted }: HeroSectionProps) {
                   transition:     'all 0.22s ease',
                 }}
               >
-                View Our Work
+                View Our Service
               </a>
             </div>
 
@@ -250,22 +250,7 @@ export default function HeroSection({ onGetStarted }: HeroSectionProps) {
               ))}
 
               {/* India trust */}
-              <div style={{
-                marginLeft:  'auto',
-                display:     'flex',
-                alignItems:  'center',
-                gap:         6,
-                padding:     '6px 14px',
-                background:  '#fff',
-                border:      '1.5px solid #E4ECF7',
-                borderRadius: 40,
-                boxShadow:   '0 2px 8px rgba(0,0,0,0.04)',
-              }}>
-                <span style={{ fontSize: '1rem' }}>🇮🇳</span>
-                <span style={{ fontSize: '0.74rem', color: '#0D1B3E', fontWeight: 600 }}>
-                  India Registered
-                </span>
-              </div>
+             
             </div>
           </div>
 
@@ -365,7 +350,7 @@ export default function HeroSection({ onGetStarted }: HeroSectionProps) {
               {/* Service rows */}
               {[
                 { icon: '📣', label: 'Paid Ads',       pct: 92, color: '#2352FF' },
-                { icon: '✍️', label: 'Content',        pct: 78, color: '#FF4F17' },
+                { icon: '✍️', label: 'Content',        pct: 95, color: '#FF4F17' },
                 { icon: '🔍', label: 'SEO / Analytics', pct: 85, color: '#2352FF' },
               ].map((s, i) => (
                 <div key={s.label} style={{
@@ -448,10 +433,7 @@ export default function HeroSection({ onGetStarted }: HeroSectionProps) {
                 justifyContent: 'center',
                 fontSize:      15,
               }}>🚀</div>
-              <div>
-                <div style={{ fontSize: '0.62rem', color: '#9AA5B4', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>New Project</div>
-                <div style={{ fontSize: '0.8rem', color: '#0D1B3E', fontWeight: 700 }}>Onboarded Today</div>
-              </div>
+              
             </div>
           </div>
         </div>

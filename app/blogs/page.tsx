@@ -7,6 +7,7 @@ import {
 import { db } from '@/lib/firebase';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import GetStartedModal from '../components/Getstartedmodal ';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface Blog {
@@ -450,6 +451,7 @@ export default function BlogsPage() {
   const [mounted, setMounted] = useState(false);
   const [search, setSearch] = useState('');
   const [filterCat, setFilterCat] = useState('All');
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -504,7 +506,9 @@ export default function BlogsPage() {
       `}</style>
 
       {/* Page bg matching hero */}
-      <Navbar onGetStarted={() => { }} />
+      <Navbar onGetStarted={() => setModalOpen(true)} />
+      
+      <GetStartedModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
       <div style={{
         position: 'fixed', inset: 0, zIndex: -1,
         background: 'linear-gradient(160deg,#EEF3FC 0%,#F5F8FF 50%,#EBF0FA 100%)',
@@ -694,7 +698,7 @@ export default function BlogsPage() {
           )}
 
         </div>
-        <Footer />
+        <Footer onGetStarted={() => setModalOpen(true)} />
       </main>
 
       {/* Modal */}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase'; // adjust to your firebase config path
 
@@ -146,6 +146,16 @@ function CategoryDropdown({
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
       <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#0D1B3E', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
@@ -219,7 +229,7 @@ function CategoryDropdown({
   );
 }
 
-function ServicesSelector({
+function ServicesDropdown({
   selected,
   onChange,
   otherValue,
@@ -230,38 +240,96 @@ function ServicesSelector({
   otherValue: string;
   onOtherChange: (v: string) => void;
 }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const toggle = (s: string) => {
     onChange(selected.includes(s) ? selected.filter(x => x !== s) : [...selected, s]);
   };
 
+  const displayText = selected.length === 0 
+    ? 'Select services…' 
+    : selected.length === 1 
+      ? selected[0] 
+      : `${selected.length} services selected`;
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
       <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#0D1B3E', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
         Services Needed
         <span style={{ color: '#9AA5B4', marginLeft: 4, fontWeight: 500, textTransform: 'none', letterSpacing: 0 }}>· pick all that apply</span>
       </span>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-        {SERVICES.map(s => {
-          const active = selected.includes(s);
-          return (
-            <button
-              key={s}
-              type="button"
-              onClick={() => toggle(s)}
-              style={{
-                padding: '7px 14px', borderRadius: 60, fontSize: '0.8rem', fontWeight: 600,
-                cursor: 'pointer', fontFamily: 'Syne, sans-serif', transition: 'all 0.18s',
-                border: active ? '1.5px solid #2352FF' : '1.5px solid #E4ECF7',
-                background: active ? 'linear-gradient(135deg,#2352FF,#1a3fd4)' : '#FAFCFF',
-                color: active ? '#fff' : '#6B7280',
-                boxShadow: active ? '0 4px 12px rgba(35,82,255,0.22)' : 'none',
-              }}
-            >
-              {s}
-            </button>
-          );
-        })}
+      <div ref={ref} style={{ position: 'relative' }}>
+        <button
+          type="button"
+          onClick={() => setOpen(o => !o)}
+          style={{
+            width: '100%', padding: '11px 14px',
+            border: `1.5px solid ${open ? '#2352FF' : '#E4ECF7'}`,
+            borderRadius: 12, background: '#FAFCFF',
+            fontSize: '0.91rem', color: selected.length > 0 ? '#0D1B3E' : '#9AA5B4',
+            textAlign: 'left', cursor: 'pointer', fontFamily: 'Syne, sans-serif',
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+            transition: 'border-color 0.18s',
+          }}
+        >
+          <span>{displayText}</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" style={{ transform: open ? 'rotate(180deg)' : 'none', transition: '0.2s', flexShrink: 0 }}>
+            <path d="M2 4l4 4 4-4" stroke="#9AA5B4" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+
+        {open && (
+          <div style={{
+            position: 'absolute', top: 'calc(100% + 6px)', left: 0, right: 0,
+            background: '#fff', border: '1.5px solid #E4ECF7', borderRadius: 14,
+            boxShadow: '0 12px 40px rgba(35,82,255,0.12)', zIndex: 100,
+            maxHeight: 250, overflowY: 'auto', padding: 6,
+          }}>
+            {SERVICES.map(s => {
+              const active = selected.includes(s);
+              return (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => toggle(s)}
+                  style={{
+                    width: '100%', textAlign: 'left', padding: '9px 12px',
+                    border: 'none', borderRadius: 9, cursor: 'pointer',
+                    fontFamily: 'Syne, sans-serif', fontSize: '0.88rem',
+                    background: active ? 'rgba(35,82,255,0.08)' : 'transparent',
+                    color: active ? '#2352FF' : '#0D1B3E',
+                    fontWeight: active ? 700 : 500,
+                    transition: 'background 0.15s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                  }}
+                  onMouseEnter={e => { if (!active) e.currentTarget.style.background = 'rgba(35,82,255,0.04)'; }}
+                  onMouseLeave={e => { if (!active) e.currentTarget.style.background = 'transparent'; }}
+                >
+                  <span>{s}</span>
+                  {active && (
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <path d="M11.6666 3.5L5.24992 9.91667L2.33325 7" stroke="#2352FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {selected.includes('Other') && (
@@ -436,7 +504,7 @@ export default function ConsultationForm({ onSuccess }: ConsultationFormProps) {
             onOtherChange={v => set('businessCategoryOther', v)}
           />
 
-          <ServicesSelector
+          <ServicesDropdown
             selected={form.services}
             onChange={v => set('services', v)}
             otherValue={form.servicesOther}

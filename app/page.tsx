@@ -40,9 +40,9 @@ export default function Home() {
         <NewHeroSection onGetStarted={() => setModalOpen(true)} />
         <HeroSection onGetStarted={() => setModalOpen(true)} />
         <MarqueeStrip />
-        <ServicesSection />
+        <ServicesSection onGetStarted={() => setModalOpen(true)} />
 
-        <WhyUsSection />
+        <WhyUsSection onGetStarted={() => setModalOpen(true)} />
 
         <BlogsSection />
 
@@ -52,7 +52,7 @@ export default function Home() {
 
 
 
-      <Footer />
+      <Footer onGetStarted={() => setModalOpen(true)} />
     </>
   );
 }

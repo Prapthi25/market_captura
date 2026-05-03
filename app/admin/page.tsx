@@ -669,7 +669,7 @@ export default function AdminPage() {
           <div className="adm-bottom-badges" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             {[
               { icon: '⭐', text: '4.8★ · 150+ Projects' },
-              { icon: '🇮🇳', text: 'India Registered' },
+             
             ].map(item => (
               <div key={item.text} style={{
                 display: 'flex', alignItems: 'center', gap: 6,

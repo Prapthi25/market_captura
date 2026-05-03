@@ -345,15 +345,7 @@ function BlogCard({ blog, onClick, index }: { blog: Blog; onClick: () => void; i
           fontSize: '.68rem', fontWeight: 700, letterSpacing: '.04em',
           boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
         }}>{blog.category}</div>
-        {blog.featured && (
-          <div style={{
-            position: 'absolute', top: 14, right: 14,
-            background: 'rgba(255,255,255,0.9)',
-            borderRadius: 20, padding: '4px 10px',
-            fontSize: '.68rem', fontWeight: 700,
-            backdropFilter: 'blur(8px)',
-          }}>⭐ Featured</div>
-        )}
+      
       </div>
 
       {/* Body */}

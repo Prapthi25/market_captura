@@ -2406,7 +2406,7 @@ export default function LoginPage() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, flexWrap: 'wrap' }}>
               {[
                 { icon: '⭐', text: '4.8★ · 150+ Projects' },
-                { icon: '🇮🇳', text: 'India Registered' },
+               
               ].map(item => (
                 <div key={item.text} style={{
                   display: 'flex', alignItems: 'center', gap: 7,
